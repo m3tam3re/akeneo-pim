@@ -4,7 +4,7 @@ CMD_ON_PROJECT = cd src && docker-compose run -u www-data --rm fpm
 PHP_RUN = $(CMD_ON_PROJECT) php
 .DEFAULT_GOAL := start
 
-.PHONY: install backup restore setup start stop
+.PHONY: install setup demodata emptydb createuser backup restore start stop
 install:
 	[ -d db ] || mkdir -p db
 	[ -d dump ] || mkdir -p dump
