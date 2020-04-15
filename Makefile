@@ -3,13 +3,14 @@ include src/.env
 CMD_ON_PROJECT = cd src && docker-compose run -u www-data --rm fpm
 PHP_RUN = $(CMD_ON_PROJECT) php
 .DEFAULT_GOAL := start
-
+# TODO chown 1000:1000 src dir
 .PHONY: install setup demodata emptydb createuser backup restore start stop
 install:
 	[ -d db ] || mkdir -p db
 	[ -d dump ] || mkdir -p dump
 	[ -d src ] || mkdir -p src
 	./setup.sh
+	chown -R 1000:1000 src/*
 
 setup:
 	cp ./docker-compose.override.yml ./src/
@@ -19,7 +20,7 @@ demodata:
 	cd src && make database O="--catalog vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures/icecat_demo_dev"
 
 emptydb:
-	cd src && database O="--catalog vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures/minimal"
+	cd src && make database O="--catalog vendor/akeneo/pim-community-dev/src/Akeneo/Platform/Bundle/InstallerBundle/Resources/fixtures/minimal"
 	$(MAKE) createuser
 
 createuser:
