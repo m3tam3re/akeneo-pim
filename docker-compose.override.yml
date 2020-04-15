@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  mysql:
+    volumes:
+      - '../db:/var/lib/mysql/'
+      - '../dump:/dump/'
+
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin'
+    restart: 'always'
+    environment:
+      PMA_HOST: 'mysql'
+    ports:
+      - "9090:80"
+    networks:
+      - 'pim'

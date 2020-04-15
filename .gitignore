@@ -1,0 +1,6 @@
+.DS_Store
+db/
+dump/
+src/
+.idea/
+docker-compose.yml
