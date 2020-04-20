@@ -1,6 +1,10 @@
 version: '3.4'
 
 services:
+  fpm:
+    volumes:
+      - './:/srv/pim'
+      - '../export:/export'
   mysql:
     volumes:
       - '../db:/var/lib/mysql/'
@@ -12,6 +16,6 @@ services:
     environment:
       PMA_HOST: 'mysql'
     ports:
-      - "9090:80"
+      - "9191:80"
     networks:
       - 'pim'
